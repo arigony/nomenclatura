@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#102a43" />
+    <meta name="color-scheme" content="light" />
+    <meta name="description" content="Aprenda nomenclatura orgânica IUPAC passo a passo, com prática guiada e desafios." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="IUPAC Quest — Nomenclatura orgânica" />
+    <meta property="og:description" content="Entenda a lógica. Construa o nome." />
+    <meta property="og:url" content="https://arigony.github.io/nomenclatura/" />
+    <meta property="og:image" content="https://arigony.github.io/nomenclatura/assets/og.png" />
+    <meta property="og:image:width" content="1730" />
+    <meta property="og:image:height" content="909" />
+    <meta property="og:image:alt" content="IUPAC Quest — Entenda a lógica. Construa o nome." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="IUPAC Quest — Nomenclatura orgânica" />
+    <meta name="twitter:description" content="Entenda a lógica. Construa o nome." />
+    <meta name="twitter:image" content="https://arigony.github.io/nomenclatura/assets/og.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <title>IUPAC Quest — Nomenclatura orgânica</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+    <header class="topbar">
+      <a class="brand" href="#inicio" id="brand-link" aria-label="IUPAC Quest, início">
+        <span class="brand-mark" aria-hidden="true">IQ</span>
+        <span><strong>IUPAC</strong> Quest</span>
+      </a>
+      <div class="quick-stats" aria-label="Seu progresso geral">
+        <span title="Pontos">⭐ <strong id="header-score">0</strong></span>
+        <span title="Sequência de acertos">🔥 <strong id="header-streak">0</strong></span>
+      </div>
+    </header>
+
+    <main id="conteudo">
+      <div id="home-view">
+        <section class="hero" id="inicio">
+          <div class="hero-copy">
+            <p class="eyebrow">Laboratório de nomenclatura</p>
+            <h1>Entenda a lógica.<br /><span>Construa o nome.</span></h1>
+            <p class="hero-lead">Treine o algoritmo mental da IUPAC em decisões curtas, da função principal ao nome completo.</p>
+            <div class="hero-actions">
+              <button class="button button-primary" id="continue-button" type="button">Começar por alcanos <span aria-hidden="true">→</span></button>
+              <button class="button button-ghost" id="integrated-button" type="button">Desafio integrado</button>
+            </div>
+            <div class="hero-proof" aria-label="Características do jogo">
+              <span>10 módulos</span><span>3 modos</span><span>progresso local</span>
+            </div>
+          </div>
+          <div class="molecule-card" aria-label="Exemplo de estrutura molecular: 3-metilpentano">
+            <div class="molecule-label">molécula de hoje</div>
+            <div class="formula">CH₃—CH₂—CH—CH₂—CH₃<br /><span>│</span><br /><span>CH₃</span></div>
+            <div class="molecule-answer"><span>cadeia 5 C</span><strong>3-metilpentano</strong></div>
+          </div>
+        </section>
+
+        <section class="method" aria-labelledby="method-title">
+          <div class="method-heading">
+            <div>
+              <p class="eyebrow">Seu mapa de raciocínio</p>
+              <h2 id="method-title">Um método,<br />todas as funções</h2>
+            </div>
+            <p>Em vez de decorar nomes, você aprende a tomar as sete decisões que resolvem qualquer exercício desta trilha.</p>
+          </div>
+          <ol class="method-steps">
+            <li><span>01</span>Função</li><li><span>02</span>Cadeia</li><li><span>03</span>Numeração</li>
+            <li><span>04</span>Elementos</li><li><span>05</span>Locantes</li><li><span>06</span>Sufixo</li><li><span>07</span>Nome</li>
+          </ol>
+        </section>
+
+        <section class="modules" aria-labelledby="modules-title">
+          <div class="section-heading">
+            <div><p class="eyebrow">Trilha completa</p><h2 id="modules-title">Escolha um módulo</h2></div>
+            <p>Comece pelos fundamentos ou vá direto ao tema da sua aula. Todos os módulos ficam disponíveis desde o início.</p>
+          </div>
+          <div class="module-grid" id="module-grid"></div>
+        </section>
+
+        <section class="dashboard" aria-labelledby="dashboard-title">
+          <div>
+            <p class="eyebrow">Seu caderno de domínio</p>
+            <h2 id="dashboard-title">Progresso que mostra onde melhorar</h2>
+            <p>O domínio combina precisão e prática concluída. Respostas erradas indicam qual regra precisa de atenção.</p>
+          </div>
+          <div class="dashboard-card">
+            <div class="domain-total"><strong id="overall-mastery">0%</strong><span>domínio geral</span></div>
+            <div class="domain-list" id="domain-list"></div>
+          </div>
+        </section>
+      </div>
+
+      <section id="game-view" class="game-view" hidden aria-labelledby="question-title">
+        <div class="game-shell">
+          <div class="game-nav">
+            <button class="icon-button" id="exit-game" type="button" aria-label="Sair da atividade">←</button>
+            <div class="game-context"><span id="game-module">Alcanos</span><strong id="game-mode">Aprender</strong></div>
+            <div class="session-stats" aria-label="Estado da atividade">
+              <span id="timer-pill" hidden>⏱ <strong id="timer-value">90</strong>s</span>
+              <span id="lives-pill" hidden>♥ <strong id="lives-value">3</strong></span>
+              <span>⭐ <strong id="session-score">0</strong></span>
+            </div>
+          </div>
+
+          <div class="game-progress-header">
+            <span id="round-label">Molécula 1 de 2</span>
+            <div class="round-progress" aria-hidden="true"><span id="round-progress-fill"></span></div>
+          </div>
+
+          <div class="game-layout">
+            <aside class="reasoning-map" aria-label="Etapas do raciocínio">
+              <p>Mapa do nome</p>
+              <ol id="step-list"></ol>
+              <div class="keyboard-help"><strong>Atalhos</strong><span>1–4 responder</span><span>Enter continuar</span><span>H mostrar dica</span></div>
+            </aside>
+
+            <article class="play-card" id="play-card">
+              <div class="question-meta"><span id="question-function">Hidrocarboneto</span><span id="question-level">Fundamento</span></div>
+              <div class="structure-panel">
+                <span class="structure-label">estrutura</span>
+                <div class="structure-formula" id="structure-formula"></div>
+                <p id="structure-description"></p>
+              </div>
+
+              <div class="rule-card" id="rule-card">
+                <span aria-hidden="true">◎</span>
+                <div><strong>Regra deste passo</strong><p id="rule-text"></p></div>
+              </div>
+
+              <div class="question-copy">
+                <p class="step-kicker" id="step-kicker">Passo 1 · Função principal</p>
+                <h2 id="question-title">Qual é a função orgânica principal?</h2>
+                <p id="question-support"></p>
+              </div>
+
+              <div class="options" id="options" role="group" aria-label="Alternativas"></div>
+
+              <div class="feedback" id="feedback" role="status" aria-live="polite" hidden>
+                <span class="feedback-icon" id="feedback-icon" aria-hidden="true"></span>
+                <div><strong id="feedback-title"></strong><p id="feedback-text"></p></div>
+              </div>
+
+              <div class="play-actions">
+                <button class="button button-hint" id="hint-button" type="button">Dica <span class="keycap">H</span></button>
+                <button class="button button-primary next-button" id="next-button" type="button" hidden>Próximo passo <span aria-hidden="true">→</span></button>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="results-view" class="results-view" hidden aria-labelledby="results-title">
+        <div class="results-card">
+          <div class="results-badge" id="results-badge" aria-hidden="true">✓</div>
+          <p class="eyebrow" id="results-eyebrow">Sessão concluída</p>
+          <h2 id="results-title">Ótimo raciocínio!</h2>
+          <p id="results-summary"></p>
+          <div class="results-stats">
+            <div><strong id="result-score">0</strong><span>pontos</span></div>
+            <div><strong id="result-accuracy">0%</strong><span>precisão</span></div>
+            <div><strong id="result-mastery">0%</strong><span>domínio</span></div>
+          </div>
+          <div class="results-review" id="results-review"></div>
+          <div class="results-actions">
+            <button class="button button-primary" id="play-again" type="button">Jogar novamente</button>
+            <button class="button button-ghost" id="back-home" type="button">Voltar aos módulos</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="mode-dialog" id="mode-dialog" aria-labelledby="dialog-title">
+      <div class="dialog-head">
+        <div><p class="eyebrow">Preparar atividade</p><h2 id="dialog-title">Alcanos</h2></div>
+        <button class="icon-button close-dialog" type="button" aria-label="Fechar">×</button>
+      </div>
+      <div class="lesson-preview">
+        <div class="lesson-icon" id="dialog-icon" aria-hidden="true">C—C</div>
+        <div><strong id="dialog-rule"></strong><p id="dialog-trap"></p></div>
+      </div>
+      <div class="mode-options" id="mode-options">
+        <button class="mode-option" type="button" data-mode="learn"><span class="mode-symbol">◎</span><span><strong>Aprender</strong><small>2 moléculas · dicas e regras visíveis</small></span><span aria-hidden="true">→</span></button>
+        <button class="mode-option" type="button" data-mode="practice"><span class="mode-symbol">◇</span><span><strong>Praticar</strong><small>5 moléculas · feedback a cada decisão</small></span><span aria-hidden="true">→</span></button>
+        <button class="mode-option" type="button" data-mode="challenge"><span class="mode-symbol">⚡</span><span><strong>Desafio</strong><small id="challenge-copy">5 moléculas · tempo e 3 vidas</small></span><span aria-hidden="true">→</span></button>
+      </div>
+      <p class="dialog-domain">Seu domínio neste módulo: <strong id="dialog-mastery">0%</strong></p>
+    </dialog>
+
+    <footer>
+      <p><strong>IUPAC Quest</strong> · feito para aprender, praticar e dominar.</p>
+      <button id="reset-progress" type="button">Reiniciar progresso</button>
+    </footer>
+    <div class="sr-only" id="announcer" aria-live="assertive"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
