@@ -1,4 +1,4 @@
-const CACHE_NAME = "iupac-quest-v1";
+const CACHE_NAME = "iupac-quest-v2";
 const APP_FILES = ["./", "./index.html", "./styles.css", "./app.js", "./manifest.webmanifest", "./assets/og.png"];
 
 self.addEventListener("install", (event) => {

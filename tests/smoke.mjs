@@ -17,11 +17,14 @@ assert.equal((app.match(/id: "(?:alcanos|cicloalcanos|alcenos|alcinos|alcoois|al
 assert.equal((app.match(/module: "(?:alcanos|cicloalcanos|alcenos|alcinos|alcoois|aldeidos|cetonas|acidos|esteres|aminas)"/g) || []).length, 30, "O banco deve conter 30 moléculas");
 assert.match(app, /const STEP_DEFS = \[/, "Etapas pedagógicas ausentes");
 assert.match(app, /const ERROR_INFO = \{/, "Feedback por tipo de erro ausente");
+assert.match(app, /const DIAGRAMS = \{/, "Diagramas estruturais ancorados ausentes");
+assert.match(app, /type: "cycle"/, "Representação geométrica de ciclos ausente");
 assert.match(app, /localStorage/, "Persistência de progresso ausente");
 assert.match(app, /keydown/, "Navegação por teclado ausente");
 assert.match(css, /@media \(min-width: 700px\)/, "Breakpoint de tablet ausente");
 assert.match(css, /@media \(min-width: 980px\)/, "Breakpoint de desktop ausente");
 assert.match(css, /min-height: 56px/, "Alvos de toque grandes ausentes");
+assert.match(css, /\.chem-cycle/, "Estilos de anel químico ausentes");
 assert.doesNotMatch(html, /<(?:script|link)[^>]+https?:\/\//, "A aplicação não deve depender de recursos externos");
 assert.equal(JSON.parse(manifest).start_url, "./");
 assert.match(workflow, /actions\/deploy-pages@v4/, "Workflow do GitHub Pages ausente");
