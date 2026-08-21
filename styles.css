@@ -158,9 +158,32 @@ footer { padding: 2rem 1rem 5rem; text-align: center; color: var(--muted); font-
 .play-card { padding: 1rem; background: var(--surface); border: 1px solid white; border-radius: 20px; box-shadow: var(--shadow); }
 .question-meta { display: flex; justify-content: space-between; gap: .5rem; margin-bottom: .8rem; color: var(--muted); font-size: .67rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
 .question-meta span:first-child { color: var(--green-dark); }
-.structure-panel { position: relative; padding: 2.1rem .8rem 1rem; text-align: center; background: #f1f5f6; border: 1px solid #e0e8ec; border-radius: 16px; }
+.structure-panel { position: relative; padding: 2.1rem .8rem 1rem; scroll-margin-top: 82px; text-align: center; background: #f1f5f6; border: 1px solid #e0e8ec; border-radius: 16px; }
 .structure-label { position: absolute; top: .65rem; left: .75rem; color: var(--muted); font-size: .61rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
-.structure-formula { min-height: 70px; display: grid; place-items: center; overflow-x: auto; color: var(--ink); font: 800 clamp(1.05rem, 5vw, 1.55rem)/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre; }
+.structure-formula { min-height: 70px; display: grid; place-items: center; overflow-x: auto; overflow-y: visible; color: var(--ink); font: 800 clamp(1.05rem, 5vw, 1.55rem)/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; white-space: pre; }
+.structure-formula.has-diagram, .formula.has-diagram { white-space: normal; }
+.chem-chain { display: flex; align-items: center; justify-content: center; min-width: max-content; padding: 3.2rem .7rem; color: inherit; }
+.chem-node { position: relative; display: grid; flex: 0 0 auto; place-items: center; min-width: 44px; min-height: 34px; }
+.chem-atom, .branch-label, .cycle-branch-label { position: relative; z-index: 3; color: inherit; font: 850 clamp(1rem, 4.8vw, 1.45rem)/1 ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: -.04em; white-space: nowrap; }
+.chain-bond { position: relative; display: block; flex: 0 0 auto; width: 25px; height: 24px; }
+.bond-stroke { position: absolute; left: 0; right: 0; height: 2.5px; background: currentColor; border-radius: 99px; }
+.chain-bond[data-order="1"] .bond-stroke { top: calc(50% - 1px); }
+.chain-bond[data-order="2"] .bond-stroke:nth-child(1) { top: calc(50% - 5px); }
+.chain-bond[data-order="2"] .bond-stroke:nth-child(2) { top: calc(50% + 3px); }
+.chain-bond[data-order="3"] .bond-stroke:nth-child(1) { top: calc(50% - 7px); }
+.chain-bond[data-order="3"] .bond-stroke:nth-child(2) { top: calc(50% - 1px); }
+.chain-bond[data-order="3"] .bond-stroke:nth-child(3) { top: calc(50% + 5px); }
+.chem-branch { position: absolute; left: 50%; z-index: 2; display: flex; align-items: center; gap: .2rem; transform: translateX(-50%); }
+.branch-down { top: calc(100% + .1rem); flex-direction: column; }
+.branch-up { bottom: calc(100% + .1rem); flex-direction: column-reverse; }
+.branch-bond { display: block; width: 2.5px; height: 26px; background: currentColor; border-radius: 99px; }
+.branch-label { display: block; }
+.chem-cycle { position: relative; width: 260px; height: 260px; margin: 0 auto; color: var(--ink); }
+.cycle-bond, .cycle-branch-bond { position: absolute; z-index: 1; display: block; height: 3px; background: currentColor; border-radius: 99px; transform-origin: left center; }
+.cycle-vertex { position: absolute; z-index: 2; width: 5px; height: 5px; background: currentColor; border-radius: 50%; transform: translate(-50%, -50%); }
+.cycle-branch-label { position: absolute; z-index: 3; padding: .14rem .25rem; background: #f1f5f6; transform: translate(-50%, -50%); }
+.molecule-card .chem-chain { padding-block: 3.6rem; }
+.molecule-card .chem-branch { color: var(--coral); }
 .structure-panel > p { margin: .45rem 0 0; color: var(--muted); font-size: .76rem; line-height: 1.4; }
 .rule-card { display: grid; grid-template-columns: auto 1fr; gap: .7rem; margin: .8rem 0; padding: .75rem; color: #275d52; background: #eaf8f4; border-left: 4px solid var(--green); border-radius: 10px; }
 .rule-card > span { display: grid; place-items: center; width: 28px; height: 28px; background: white; border-radius: 50%; font-weight: 900; }
@@ -249,4 +272,7 @@ footer button { padding: .35rem .6rem; color: var(--muted); background: transpar
   .game-context span { display: none; }
   .play-actions .button { padding-inline: .8rem; }
   .mode-dialog { padding: 1rem; }
+  .chem-node { min-width: 40px; }
+  .chain-bond { width: 18px; }
+  .chem-cycle { transform: scale(.9); }
 }

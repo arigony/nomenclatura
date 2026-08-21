@@ -66,6 +66,29 @@ const QUESTIONS = [
   { id: "amine-3", module: "aminas", structure: "CH₃—CH₂—CH—CH₂NH₂\n         │\n        CH₃", description: "Amina terminal e uma ramificação metil.", parent: "butano · 4 carbonos contendo C—NH₂", numbering: "A partir do carbono ligado a NH₂", features: "uma amina primária e um substituinte metil", locants: "NH₂ no C1; metil no C2", name: "2-metilbutan-1-amina", parentAlt: ["pentano · 5 carbonos", "propano · 3 carbonos", "buteno · com dupla"], numberAlt: ["A partir do CH₃ oposto", "Comece no carbono ramificado", "NH₂ não tem prioridade"], featureAlt: ["uma amida e um metil", "uma amina sem substituinte", "uma amina secundária"], locantAlt: ["NH₂ no C4; metil no C3", "NH₂ no C1; metil no C3", "NH₂ no C2; metil no C1"], wrongNames: ["3-metilbutan-4-amina", "2-metilbutan-2-amina", "2-metilbutanamida"] }
 ];
 
+const DIAGRAMS = {
+  hero: { type: "chain", atoms: ["CH₃", "CH₂", "CH", "CH₂", "CH₃"], bonds: [1, 1, 1, 1], branches: [{ at: 2, label: "CH₃", direction: "down" }] },
+  "alk-1": { type: "chain", atoms: ["CH₃", "CH", "CH₂", "CH₃"], bonds: [1, 1, 1], branches: [{ at: 1, label: "CH₃", direction: "down" }] },
+  "alk-2": { type: "chain", atoms: ["CH₃", "CH₂", "CH", "CH₂", "CH₃"], bonds: [1, 1, 1, 1], branches: [{ at: 2, label: "CH₃", direction: "down" }] },
+  "alk-3": { type: "chain", atoms: ["CH₃", "C", "CH₂", "CH₃"], bonds: [1, 1, 1], branches: [{ at: 1, label: "CH₃", direction: "up" }, { at: 1, label: "CH₃", direction: "down" }] },
+  "cyc-1": { type: "cycle", size: 6, branches: [{ at: 0, label: "CH₃" }] },
+  "cyc-2": { type: "cycle", size: 6, branches: [{ at: 0, label: "CH₂CH₃" }, { at: 2, label: "CH₃" }] },
+  "cyc-3": { type: "cycle", size: 5, branches: [{ at: 4, label: "CH₃" }, { at: 0, label: "CH₃" }] },
+  "ene-2": { type: "chain", atoms: ["CH₂", "C", "CH₂", "CH₃"], bonds: [2, 1, 1], branches: [{ at: 1, label: "CH₃", direction: "down" }] },
+  "ene-3": { type: "chain", atoms: ["CH₃", "CH", "C", "CH₃"], bonds: [1, 2, 1], branches: [{ at: 2, label: "CH₃", direction: "down" }] },
+  "yne-3": { type: "chain", atoms: ["HC", "C", "CH", "CH₃"], bonds: [3, 1, 1], branches: [{ at: 2, label: "CH₃", direction: "down" }] },
+  "ol-1": { type: "chain", atoms: ["CH₃", "CH", "CH₂", "CH₃"], bonds: [1, 1, 1], branches: [{ at: 1, label: "OH", direction: "down" }] },
+  "ol-2": { type: "chain", atoms: ["CH₃", "CH", "CH₂OH"], bonds: [1, 1], branches: [{ at: 1, label: "CH₃", direction: "down" }] },
+  "ol-3": { type: "chain", atoms: ["CH₃", "CH", "CH", "CH₃"], bonds: [1, 1, 1], branches: [{ at: 1, label: "OH", direction: "down" }, { at: 2, label: "CH₃", direction: "down" }] },
+  "al-2": { type: "chain", atoms: ["CH₃", "CH", "CHO"], bonds: [1, 1], branches: [{ at: 1, label: "CH₃", direction: "down" }] },
+  "al-3": { type: "chain", atoms: ["CH₃", "CH₂", "CH", "CHO"], bonds: [1, 1, 1], branches: [{ at: 2, label: "CH₃", direction: "down" }] },
+  "one-3": { type: "chain", atoms: ["CH₃", "CO", "CH", "CH₃"], bonds: [1, 1, 1], branches: [{ at: 2, label: "CH₃", direction: "down" }] },
+  "acid-2": { type: "chain", atoms: ["CH₃", "CH", "COOH"], bonds: [1, 1], branches: [{ at: 1, label: "CH₃", direction: "down" }] },
+  "acid-3": { type: "chain", atoms: ["CH₃", "CH₂", "CH", "COOH"], bonds: [1, 1, 1], branches: [{ at: 2, label: "CH₃", direction: "down" }] },
+  "amine-2": { type: "chain", atoms: ["CH₃", "CH", "CH₃"], bonds: [1, 1], branches: [{ at: 1, label: "NH₂", direction: "down" }] },
+  "amine-3": { type: "chain", atoms: ["CH₃", "CH₂", "CH", "CH₂NH₂"], bonds: [1, 1, 1], branches: [{ at: 2, label: "CH₃", direction: "down" }] }
+};
+
 const STEP_DEFS = [
   { id: "function", label: "Função", title: "Qual é a função orgânica principal?", support: "Observe o grupo característico e o tipo de ligação.", rule: "A função principal define a prioridade da numeração e o sufixo do nome." },
   { id: "parent", label: "Cadeia", title: "Qual é a cadeia principal correta?", support: "Conte o maior caminho permitido que contém a função ou a insaturação prioritária.", rule: "A cadeia principal deve conter a função principal e, quando aplicável, a insaturação." },
@@ -282,6 +305,115 @@ function startTimer() {
 function currentQuestion() { return state.questions[state.questionIndex]; }
 function currentStep() { return state.steps[state.stepIndex]; }
 
+function createChainBond(order) {
+  const bond = document.createElement("span");
+  bond.className = "chain-bond";
+  bond.dataset.order = String(order || 1);
+  for (let line = 0; line < (order || 1); line += 1) {
+    const stroke = document.createElement("span");
+    stroke.className = "bond-stroke";
+    bond.append(stroke);
+  }
+  return bond;
+}
+
+function buildChainDiagram(diagram) {
+  const chain = document.createElement("div");
+  chain.className = "chem-chain";
+  diagram.atoms.forEach((atom, atomIndex) => {
+    const node = document.createElement("span");
+    node.className = "chem-node";
+    const atomLabel = document.createElement("span");
+    atomLabel.className = "chem-atom";
+    atomLabel.textContent = atom;
+    node.append(atomLabel);
+
+    diagram.branches.filter((branch) => branch.at === atomIndex).forEach((branch) => {
+      const branchElement = document.createElement("span");
+      branchElement.className = `chem-branch branch-${branch.direction || "down"}`;
+      const branchBond = document.createElement("span");
+      branchBond.className = "branch-bond";
+      const branchLabel = document.createElement("span");
+      branchLabel.className = "branch-label";
+      branchLabel.textContent = branch.label;
+      branchElement.append(branchBond, branchLabel);
+      node.append(branchElement);
+    });
+
+    chain.append(node);
+    if (atomIndex < diagram.atoms.length - 1) chain.append(createChainBond(diagram.bonds[atomIndex]));
+  });
+  return chain;
+}
+
+function createPositionedBond(x1, y1, x2, y2, className) {
+  const bond = document.createElement("span");
+  const deltaX = x2 - x1;
+  const deltaY = y2 - y1;
+  bond.className = className;
+  bond.style.left = `${x1}px`;
+  bond.style.top = `${y1}px`;
+  bond.style.width = `${Math.hypot(deltaX, deltaY)}px`;
+  bond.style.transform = `rotate(${Math.atan2(deltaY, deltaX)}rad)`;
+  return bond;
+}
+
+function buildCycleDiagram(diagram) {
+  const cycle = document.createElement("div");
+  cycle.className = "chem-cycle";
+  cycle.dataset.size = String(diagram.size);
+  const center = { x: 130, y: 130 };
+  const radius = diagram.size === 5 ? { x: 68, y: 64 } : { x: 74, y: 62 };
+  const points = Array.from({ length: diagram.size }, (_, index) => {
+    const angle = -Math.PI / 2 + index * (Math.PI * 2 / diagram.size);
+    return { x: center.x + Math.cos(angle) * radius.x, y: center.y + Math.sin(angle) * radius.y };
+  });
+
+  points.forEach((point, index) => {
+    const next = points[(index + 1) % points.length];
+    cycle.append(createPositionedBond(point.x, point.y, next.x, next.y, "cycle-bond"));
+  });
+
+  diagram.branches.forEach((branch) => {
+    const point = points[branch.at];
+    const deltaX = point.x - center.x;
+    const deltaY = point.y - center.y;
+    const magnitude = Math.hypot(deltaX, deltaY);
+    const unitX = deltaX / magnitude;
+    const unitY = deltaY / magnitude;
+    const end = { x: point.x + unitX * 34, y: point.y + unitY * 34 };
+    cycle.append(createPositionedBond(point.x, point.y, end.x, end.y, "cycle-branch-bond"));
+    const label = document.createElement("span");
+    label.className = "cycle-branch-label";
+    label.textContent = branch.label;
+    label.style.left = `${point.x + unitX * 53}px`;
+    label.style.top = `${point.y + unitY * 53}px`;
+    cycle.append(label);
+  });
+
+  points.forEach((point) => {
+    const vertex = document.createElement("span");
+    vertex.className = "cycle-vertex";
+    vertex.style.left = `${point.x}px`;
+    vertex.style.top = `${point.y}px`;
+    cycle.append(vertex);
+  });
+  return cycle;
+}
+
+function renderChemicalStructure(question, target = els.structure) {
+  const diagram = DIAGRAMS[question.id];
+  target.replaceChildren();
+  target.classList.toggle("has-diagram", Boolean(diagram));
+  target.setAttribute("role", "img");
+  target.setAttribute("aria-label", `Estrutura química. ${question.description}`);
+  if (!diagram) {
+    target.textContent = question.structure;
+    return;
+  }
+  target.append(diagram.type === "cycle" ? buildCycleDiagram(diagram) : buildChainDiagram(diagram));
+}
+
 function loadQuestion() {
   const question = currentQuestion();
   state.steps = stepsFor(question);
@@ -289,7 +421,7 @@ function loadQuestion() {
   state.resolved = false;
   state.wrongOptions = new Set();
   state.attemptsOnStep = 0;
-  els.structure.textContent = question.structure;
+  renderChemicalStructure(question);
   els.description.textContent = question.description;
   const sourceModule = moduleById(question.module);
   els.questionFunction.textContent = sourceModule.family;
@@ -530,3 +662,4 @@ if ("serviceWorker" in navigator && location.protocol !== "file:") {
 }
 
 renderHome();
+renderChemicalStructure({ id: "hero", description: "3-metilpentano", structure: "CH₃—CH₂—CH(CH₃)—CH₂—CH₃" }, $("#hero-formula"));
