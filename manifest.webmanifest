@@ -1,0 +1,11 @@
+{
+  "name": "IUPAC Quest — Nomenclatura Orgânica",
+  "short_name": "IUPAC Quest",
+  "description": "Jogo educativo de nomenclatura orgânica IUPAC em sete passos.",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f4ed",
+  "theme_color": "#102a43"
+}
